@@ -8,57 +8,56 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-public class Client {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_client;
-    @NotBlank(message = "Client fullname is required")
-    private String fullname;
-    @NotBlank(message = "Client address is required")
-    private String address;
-    @NotBlank(message = "Client address is required")
-    @Size(min=11, max=11, message = "Please use 11 characters. Start with '8'")
+    private Long id_account;
+    @NotBlank(message ="Account Identifier is required")
+    @Size(min=4, max=5, message = "Please use 4 to 5 characters")
     @Column(updatable = false, unique = true)
-    private String phoneNumber;
+    private String accountIdentifier;
+    private int count;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date created_At;
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date updated_At;
+    @Column(name = "client_id", nullable = false, updatable = false)
+    private Long client_id;
 
-    public Client() {
+    public Account() {
     }
 
-    public Long getId_client() {
-        return id_client;
+    public Long getId_account() {
+        return id_account;
     }
 
-    public void setId_client(Long id_client) {
-        this.id_client = id_client;
+    public void setId_account(Long id_account) {
+        this.id_account = id_account;
     }
 
-    public String getFullname() {
-        return fullname;
+    public int getCount() {
+        return count;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public String getAddress() {
-        return address;
+    public Long getClient_id() {
+        return client_id;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setClient_id(Long client_id) {
+        this.client_id = client_id;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getAccountIdentifier() {
+        return accountIdentifier;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setAccountIdentifier(String accountIdentifier) {
+        this.accountIdentifier = accountIdentifier;
     }
 
     public Date getCreated_At() {
