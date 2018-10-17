@@ -2,19 +2,28 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createClient } from "../../actions/clientActions";
+import classnames from "classnames";
 
 class AddClient extends Component {
   constructor() {
     super()
 
-    this.state={
-      "fullname": "",
-      "address": "",
-      "phoneNumber": ""
+    this.state = {
+      fullname: "",
+      address: "",
+      phoneNumber: "",
+      errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  //life cycle hooks
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
   }
 
   onChange(e) {
@@ -32,6 +41,8 @@ class AddClient extends Component {
   }
 
   render() {
+    const {errors} = this.state
+
     return (
       <div>
         {
@@ -45,60 +56,96 @@ class AddClient extends Component {
             //check state change in the react extension
         }
         <div className="client">
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-8 m-auto">
-                        <h5 className="display-4 text-center">Create client form</h5>
-                        <hr />
-                        <form onSubmit={ this.onSubmit }>
-                            <div className="form-group">
-                                <input 
-                                    type="text"
-                                    className="form-control form-control-lg"
-                                    placeholder="Client Fullname" 
-                                    name="fullname"
-                                    value={ this.state.fullname }
-                                    onChange={ this.onChange.bind(this) }
-                                    />
-                            </div>
-                            <div className="form-group">
-                                <input 
-                                    type="text"
-                                    className="form-control form-control-lg"
-                                    placeholder="Client address"
-                                    name="address"
-                                    value={ this.state.address }
-                                    onChange={ this.onChange }
-                                    />
-                            </div>
-                            <div className="form-group">
-                                <input 
-                                    type="text"
-                                    className="form-control form-control-lg"
-                                    placeholder="Client phoneNumber"
-                                    name="phoneNumber"
-                                    value={ this.state.phoneNumber }
-                                    onChange={ this.onChange.bind(this) }
-                                    />
-                            </div>
-
-                            <input type="submit" className="btn btn-primary btn-block mt-4" />
-                        </form>
-                    </div>
-                </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-md-8 m-auto">
+                <h5 className="display-4 text-center">Create client form</h5>
+                <hr />
+                <form onSubmit={ this.onSubmit }>
+                  <div className="form-group">
+                    <input 
+                      type="text"
+                      className = {
+                        classnames(
+                          "form-control form-control-lg", {
+                            "is-invalid": errors.fullname
+                          }
+                        )
+                      }
+                      placeholder="fullname" 
+                      name="fullname"
+                      value={ this.state.fullname }
+                      onChange={ this.onChange.bind(this) }
+                    />
+                    { errors.fullname && (
+                      <div className="invalid-feedback">
+                        {errors.fullname}
+                      </div>
+                    )}
+                  </div>
+                  <div className="form-group">
+                    <input 
+                      type="text"
+                      className = {
+                        classnames(
+                          "form-control form-control-lg", {
+                            "is-invalid": errors.address
+                          }
+                        )
+                      }
+                      placeholder="address"
+                      name="address"
+                      value={ this.state.address }
+                      onChange={ this.onChange }
+                    />
+                    { errors.address && (
+                      <div className="invalid-feedback">
+                        {errors.address}
+                      </div>
+                    )}
+                  </div>
+                  <div className="form-group">
+                    <input 
+                      type="text"
+                      className = {
+                        classnames(
+                          "form-control form-control-lg", {
+                            "is-invalid": errors.phoneNumber
+                          }
+                        )
+                      }
+                      placeholder="phone number"
+                      name="phoneNumber"
+                      value={ this.state.phoneNumber }
+                      onChange={ this.onChange.bind(this) }
+                    />
+                    { errors.phoneNumber && (
+                      <div className="invalid-feedback">
+                        {errors.phoneNumber}
+                      </div>
+                    )}
+                  </div>
+                  <input type="submit" className="btn btn-primary btn-block mt-4" />
+                </form>
+              </div>
             </div>
+          </div>
         </div>
-
       </div>
     );
   }
 }
 
 AddClient.propTypes = {
-  createClient: PropTypes.func.isRequired
+  createClient: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { createClient }
 )(AddClient);
