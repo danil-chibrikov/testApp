@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/bank/client")
+@CrossOrigin
 public class ClientController {
 
     @Autowired

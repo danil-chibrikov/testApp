@@ -3,31 +3,29 @@ img {
 }
 
 .navbar {
-  background-color: rgb(185, 190, 176);
+  background-color: #e3f2fd;
 }
-
 .fa.fa-edit {
-  color: green;
-}
-
-.fa-check {
-  color: blue;
-}
-
-.fa.fa-ban {
-  color: red;;
+  color: #18a2b9;
 }
 
 .list-group-item.delete:hover {
+  cursor: -webkit-grab;
   background-color: pink;
 }
 
 .list-group-item.update:hover {
-  background-color: lightgreen;
+  cursor: -webkit-grab;
+  background-color: gainsboro;
 }
 
 .list-group-item.board:hover {
-  background-color: lightblue;
+  cursor: -webkit-grab;
+  background-color: gainsboro;
+}
+
+.fa.fa-minus-circle {
+  color: red;
 }
 
 .landing {
