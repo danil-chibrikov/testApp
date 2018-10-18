@@ -15,15 +15,16 @@ public class Client {
     private Long id_client;
     @NotBlank(message = "Client fullname is required")
     private String fullname;
-    @NotBlank(message = "Client address is required")
+    @NotBlank(message = "Client address is required. Please use this form(City, street, number of building)")
     private String address;
-    @NotBlank(message = "Client address is required")
-    @Size(min=11, max=11, message = "Please use 11 characters. Start with '8'")
-    @Column(updatable = false, unique = true)
-    private String phoneNumber;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @NotBlank(message = "Client credit card number is required")
+    @Size(min=16, max=16, message = "Please use 16 characters. Only numeral")
+    @Column(unique = true)
+    private String creditCardNumber;
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
+    @Column(updatable = false)
     private Date created_At;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private Date updated_At;
 
     public Client() {
@@ -53,12 +54,12 @@ public class Client {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getCreditCardNumber() {
+        return creditCardNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
     }
 
     public Date getCreated_At() {

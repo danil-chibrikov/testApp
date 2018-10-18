@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/bank/client")
+@CrossOrigin
 public class ClientController {
 
     @Autowired
@@ -31,10 +32,10 @@ public class ClientController {
         return new ResponseEntity<Client>(cl, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{phoneNumber}")
-    public ResponseEntity<?> getClientByPhoneNumber(@PathVariable String phoneNumber) {
+    @GetMapping("/{creditCardNumber}")
+    public ResponseEntity<?> getClientByCreditCardNumber(@PathVariable String creditCardNumber) {
 
-        Client client = clientService.findClientByPhoneNumber(phoneNumber);
+        Client client = clientService.findClientByCreditCardNumber(creditCardNumber);
 
         return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
@@ -44,10 +45,11 @@ public class ClientController {
         return clientService.findAllClients();
     }
 
-    @DeleteMapping("/{phoneNumber}")
-    public ResponseEntity<?> deleteClient(@PathVariable String phoneNumber) {
-        clientService.deleteClientsByIdentifier(phoneNumber);
+    @DeleteMapping("/{creditCardNumber}")
+    public ResponseEntity<?> deleteClient(@PathVariable String creditCardNumber) {
+        clientService.deleteClientsByCreditCardNumber(creditCardNumber);
 
-        return new ResponseEntity<String>("Account with ID: '" + phoneNumber + "' was deleted", HttpStatus.OK);
+        return new ResponseEntity<String>("Client with credit card number: '" +
+                creditCardNumber + "' was deleted", HttpStatus.OK);
     }
 }
