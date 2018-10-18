@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { deleteClient } from "../../actions/clientActions";
 
 class ClientItem extends Component {
+  
+  onDeleteClick = id_client => {
+    this.props.deleteClient(id_client);
+  };
+
   render() {
     const {client} = this.props;
     return (
@@ -26,12 +34,13 @@ class ClientItem extends Component {
                               <li className="list-group-item update">
                                   <p className="fa fa-edit pr-1"> Update Client Info</p>
                               </li>
-                          </Link>
-                          <a href="">
-                              <li className="list-group-item delete">
-                                  <p className="fa fa-ban pr-1"> Delete Client</p>
-                              </li>
-                          </a>
+                          </Link>                        
+                        <li className="list-group-item delete" 
+                            onClick={ this.onDeleteClick.bind(
+                                this, 
+                                client.creditCardNumber) }>
+                            <p className="fa fa-ban pr-1"> Delete Client</p>
+                        </li>   
                       </ul>
                   </div>
               </div>
@@ -41,4 +50,11 @@ class ClientItem extends Component {
   }
 }
 
-export default ClientItem;
+ClientItem.propTypes = {
+    deleteClient: PropTypes.func.isRequired
+};
+
+export default connect(
+    null,
+    {deleteClient}
+)(ClientItem);

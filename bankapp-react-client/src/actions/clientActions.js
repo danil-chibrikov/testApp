@@ -1,9 +1,9 @@
 import axios from "axios";
-import { GET_ERRORS, GET_CLIENTS, GET_CLIENT } from "./types";
+import { GET_ERRORS, GET_CLIENTS, GET_CLIENT, DELETE_CLIENT } from "./types";
 
 export const createClient = (client, history) => async dispatch => {
     try {
-        const res = await axios.post("http://localhost:8080/bank/client", client);
+        const res = await axios.post("/bank/client", client);
         history.push("/dashboard");
         dispatch({ 
             type: GET_ERRORS,
@@ -18,7 +18,7 @@ export const createClient = (client, history) => async dispatch => {
 };
 
 export const getClients = () => async dispatch => {
-    const res = await axios.get("http://localhost:8080/bank/client/all");
+    const res = await axios.get("/bank/client/all");
     dispatch ({
         type: GET_CLIENTS,
         payload: res.data
@@ -27,7 +27,7 @@ export const getClients = () => async dispatch => {
 
 export const getClient = (id_client, history) => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:8080/bank/client/${ id_client }`);
+        const res = await axios.get(`/bank/client/${ id_client }`);
         dispatch ({
             type: GET_CLIENT,
             payload: res.data
@@ -35,5 +35,19 @@ export const getClient = (id_client, history) => async dispatch => {
     } catch (error) {
         history.push("/dashboard");
         
+    }
+};
+
+export const deleteClient = id_client => async dispatch => {
+    if (
+        window.confirm(
+            "Are you sure? Thiw will delete the client and all the data related to it"
+        )
+    ) {
+        await axios.delete(`/bank/client/${ id_client }`);
+        dispatch ({
+            type: DELETE_CLIENT,
+            payload: id_client
+        }); 
     }
 };
