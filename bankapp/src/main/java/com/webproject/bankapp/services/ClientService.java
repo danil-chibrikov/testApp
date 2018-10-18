@@ -14,18 +14,20 @@ public class ClientService {
 
     public Client saveOrUpdateClient(Client client) {
         try {
-            client.setPhoneNumber(client.getPhoneNumber().toUpperCase());
+            client.setCreditCardNumber(client.getCreditCardNumber().toUpperCase());
             return clientRepository.save(client);
         }catch (Exception e) {
-            throw new ClientIdException("Client with number'" + client.getPhoneNumber().toUpperCase() + "' already exists");
+            throw new ClientIdException("Client with credit card number '"
+                    + client.getCreditCardNumber().toUpperCase() + "' already exists");
         }
     }
 
-    public Client findClientByPhoneNumber(String phoneNumber) {
-        Client client = clientRepository.findByPhoneNumber(phoneNumber.toUpperCase());
+    public Client findClientByCreditCardNumber(String creditCardNumber) {
+        Client client = clientRepository.findByCreditCardNumber(creditCardNumber.toUpperCase());
 
         if(client == null) {
-            throw new ClientIdException("Client with number '" + phoneNumber + "' does not exists");
+            throw new ClientIdException("Client with credit card number '"
+                    + creditCardNumber + "' does not exists");
         }
         return client;
     }
@@ -34,11 +36,12 @@ public class ClientService {
         return clientRepository.findAll();
     }
 
-    public void deleteClientsByIdentifier(String phoneNumber) {
-        Client client = clientRepository.findByPhoneNumber(phoneNumber.toUpperCase());
+    public void deleteClientsByCreditCardNumber(String creditCardNumber) {
+        Client client = clientRepository.findByCreditCardNumber(creditCardNumber.toUpperCase());
 
         if(client == null) {
-            throw new ClientIdException("Cannot Client with number '" + phoneNumber + "'. This client does not exist");
+            throw new ClientIdException("Cannot Client with credit card number '"
+                    + creditCardNumber + "'. This client does not exist");
         }
         clientRepository.delete(client);
     }
