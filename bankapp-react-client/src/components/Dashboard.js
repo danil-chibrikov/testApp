@@ -1,9 +1,18 @@
 import React, { Component } from "react";
 import ClientItem from "./Client/ClientItem";
 import CreateClientButton from "./Client/CreateClientButton";
+import { connect } from "react-redux";
+import { getClients } from "../actions/clientActions";
+import PropTypes from "prop-types";
 
 class Dashboard extends Component {
+
+  componentDidMount() {
+    this.props.getClients();
+  }
+
   render() {
+    const {clients} = this.props.client;
     return(
       <div className="clients">
           <div className="container">
@@ -14,7 +23,10 @@ class Dashboard extends Component {
                       <CreateClientButton />
                       <br />
                       <hr />
-                      <ClientItem />
+                      {clients.map(client => (
+                        <ClientItem key={ client.id_client }client={ client } />
+                      ))
+                      }
                   </div>
               </div>
           </div>
@@ -23,4 +35,16 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+    client: PropTypes.object.isRequired,
+    getClients: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+    client: state.client
+});
+
+export default connect(
+    mapStateToProps, 
+    { getClients }
+)(Dashboard);

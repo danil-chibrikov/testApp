@@ -11,7 +11,7 @@ class AddClient extends Component {
     this.state = {
       fullname: "",
       address: "",
-      phoneNumber: "",
+      creditCardNumber: "",
       errors: {}
     };
 
@@ -35,7 +35,7 @@ class AddClient extends Component {
     const newClient = {
       "fullname": this.state.fullname,
       "address": this.state.address,
-      "phoneNumber": this.state.phoneNumber
+      "creditCardNumber": this.state.creditCardNumber
     };
     this.props.createClient(newClient, this.props.history);
   }
@@ -72,7 +72,7 @@ class AddClient extends Component {
                           }
                         )
                       }
-                      placeholder="fullname" 
+                      placeholder="Fullname" 
                       name="fullname"
                       value={ this.state.fullname }
                       onChange={ this.onChange.bind(this) }
@@ -93,7 +93,7 @@ class AddClient extends Component {
                           }
                         )
                       }
-                      placeholder="address"
+                      placeholder="Address(City, street, number of building)"
                       name="address"
                       value={ this.state.address }
                       onChange={ this.onChange }
@@ -110,18 +110,18 @@ class AddClient extends Component {
                       className = {
                         classnames(
                           "form-control form-control-lg", {
-                            "is-invalid": errors.phoneNumber
+                            "is-invalid": errors.creditCardNumber
                           }
                         )
                       }
-                      placeholder="phone number"
-                      name="phoneNumber"
-                      value={ this.state.phoneNumber }
+                      placeholder="Credit card number"
+                      name="creditCardNumber"
+                      value={ this.state.creditCardNumber }
                       onChange={ this.onChange.bind(this) }
                     />
-                    { errors.phoneNumber && (
+                    { errors.creditCardNumber && (
                       <div className="invalid-feedback">
-                        {errors.phoneNumber}
+                        {errors.creditCardNumber}
                       </div>
                     )}
                   </div>

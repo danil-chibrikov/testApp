@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import AddClient from "./components/Client/AddClient";
 import { Provider } from "react-redux";
 import store from "./store";
+import UpdateClient from "./components/Client/UpdateClient";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Header />
             <Route exact path="/dashboard" component={ Dashboard } />
             <Route exact path="/addClient" component={ AddClient } />
+            <Route exact path="/updateClient/:id_client" component={ UpdateClient } />
           </div>
         </Router>
       </Provider>
