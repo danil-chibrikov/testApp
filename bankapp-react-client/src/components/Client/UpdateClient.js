@@ -13,7 +13,7 @@ class UpdateClient extends Component {
             id_client: "",
             fullname: "",
             address: "",
-            creditCardNumber: "",
+            cardNumber: "",
             created_At: "",
             updated_At: "",
             errors: {}
@@ -32,7 +32,7 @@ class UpdateClient extends Component {
             id_client,
             fullname,
             address,
-            creditCardNumber,
+            cardNumber,
             created_At,
             updated_At
         } = nextProps.client;
@@ -41,7 +41,7 @@ class UpdateClient extends Component {
             id_client,
             fullname,
             address,
-            creditCardNumber,
+            cardNumber,
             created_At,
             updated_At
         });
@@ -65,7 +65,7 @@ class UpdateClient extends Component {
             id_client: this.state.id_client,
             fullname: this.state.fullname,
             address: this.state.address,
-            creditCardNumber: this.state.creditCardNumber,
+            cardNumber: this.state.cardNumber,
             created_At: this.state.created_At,
             updated_At: this.state.updated_At
         };
@@ -118,8 +118,8 @@ class UpdateClient extends Component {
                                 type="text"
                                 className="form-control form-control-lg"
                                 placeholder="Credit card number"
-                                name="creditCardNumber"
-                                value={ this.state.creditCardNumber }
+                                name="cardNumber"
+                                value={ this.state.cardNumber }
                                 disabled
                             />
                         </div>

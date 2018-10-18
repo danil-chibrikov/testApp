@@ -1,10 +1,10 @@
 package com.webproject.bankapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -13,17 +13,23 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_account;
-    @NotBlank(message ="Account Identifier is required")
-    @Size(min=4, max=5, message = "Please use 4 to 5 characters")
     @Column(updatable = false, unique = true)
-    private String accountIdentifier;
-    private int count;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    private String accountSequence;
+    @NotBlank(message = "Please deposit money")
+    private String count;
+
+    //ManyToOne with Backlog
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="backlog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private Backlog backlog;
+
+    @Column(updatable = false)
+    private String cardNumber;
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private Date created_At;
-    @JsonFormat(pattern = "yyyy-mm-dd")
+    @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private Date updated_At;
-    @Column(name = "client_id", nullable = false, updatable = false)
-    private Long client_id;
 
     public Account() {
     }
@@ -36,28 +42,28 @@ public class Account {
         this.id_account = id_account;
     }
 
-    public int getCount() {
+    public String getAccountSequence() {
+        return accountSequence;
+    }
+
+    public void setAccountSequence(String accountSequence) {
+        this.accountSequence = accountSequence;
+    }
+
+    public String getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 
-    public Long getClient_id() {
-        return client_id;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
-    public void setClient_id(Long client_id) {
-        this.client_id = client_id;
-    }
-
-    public String getAccountIdentifier() {
-        return accountIdentifier;
-    }
-
-    public void setAccountIdentifier(String accountIdentifier) {
-        this.accountIdentifier = accountIdentifier;
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public Date getCreated_At() {
@@ -66,6 +72,14 @@ public class Account {
 
     public void setCreated_At(Date created_At) {
         this.created_At = created_At;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
     }
 
     public Date getUpdated_At() {
@@ -84,5 +98,16 @@ public class Account {
     @PreUpdate
     protected void OnUpdate(){
         this.updated_At = new Date();
+    }
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id_account=" + id_account +
+                ", accountSequence='" + accountSequence + '\'' +
+                ", count='" + count + '\'' +
+                ", backlog=" + backlog +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", create_At=" + created_At +
+                '}';
     }
 }

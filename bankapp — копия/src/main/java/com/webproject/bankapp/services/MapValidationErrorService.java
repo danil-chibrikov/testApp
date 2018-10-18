@@ -13,6 +13,7 @@ import java.util.Map;
 public class MapValidationErrorService {
 
     public ResponseEntity<?> MapValidationService(BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -21,6 +22,7 @@ public class MapValidationErrorService {
 
             return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
         }
+
         return null;
     }
 }

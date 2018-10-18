@@ -30,17 +30,19 @@ class ClientItem extends Component {
                                   <p className="fa fa-check pr-1"> Client Board </p>
                               </li>
                           </a>
-                          <Link to={ `/updateClient/${ client.creditCardNumber }` }>
+                          <Link to={ `/updateClient/${ client.cardNumber }` }>
                               <li className="list-group-item update">
                                   <p className="fa fa-edit pr-1"> Update Client Info</p>
                               </li>
-                          </Link>                        
-                        <li className="list-group-item delete" 
-                            onClick={ this.onDeleteClick.bind(
-                                this, 
-                                client.creditCardNumber) }>
-                            <p className="fa fa-ban pr-1"> Delete Client</p>
-                        </li>   
+                          </Link>   
+                          <a href="#">                     
+                              <li className="list-group-item delete" 
+                                  onClick={ this.onDeleteClick.bind(
+                                      this, 
+                                      client.cardNumber) }>
+                                  <p className="fa fa-ban pr-1"> Delete Client</p>
+                              </li>  
+                          </a> 
                       </ul>
                   </div>
               </div>

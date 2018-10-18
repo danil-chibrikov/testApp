@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long> {
 
-    Client findByCardNumber(String cardNumber);
+    Client findByCreditCardNumber(String creditCardNumber);
 
     @Override
     Iterable<Client> findAll();

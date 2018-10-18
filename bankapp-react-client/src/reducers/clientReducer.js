@@ -21,7 +21,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 clients: state.clients.filter(
-                    client => client.creditCardNumber !== action.payload
+                    client => client.cardNumber !== action.payload
                 )
             };
         default: 
