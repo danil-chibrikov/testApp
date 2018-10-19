@@ -4,6 +4,26 @@ import Account from "./Accounts/Account";
  class Backlog extends Component {
      
   render() {
+    const { accounts_prop } = this.props;
+    const account_for = accounts_prop.map(account => (
+      <Account key={account.id} account={account} />
+    ));
+
+    let ruble = [];
+    let euro = [];
+    let dollar = [];
+     for (let i = 0; i < account_for.length; i++) {
+      console.log(account_for[i]);
+       if (account_for[i].props.account.type === "RUBLE") {
+        ruble.push(account_for[i]);
+      }
+       if (account_for[i].props.account.type === "EURO") {
+        euro.push(account_for[i]);
+      }
+       if (account_for[i].props.account.type === "DOLLAR") {
+        dollar.push(account_for[i]);
+      }
+    }
 
     return (
       <div className="container">
@@ -14,30 +34,23 @@ import Account from "./Accounts/Account";
                 <h3>Ruble</h3>
               </div>
             </div>
-            <Account />
+            { ruble }
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
-              <div className="card-header bg-primary text-white">
+              <div className="card-header bg-secondary text-white">
                 <h3>Euro</h3>
               </div>
             </div>
-            <Account />
-            {
-              //  <!-- SAMPLE PROJECT TASK STARTS HERE -->
-              //         <!-- SAMPLE PROJECT TASK ENDS HERE -->
-            }
+            { euro }
           </div>
           <div className="col-md-4">
             <div className="card text-center mb-2">
-              <div className="card-header bg-success text-white">
+              <div className="card-header bg-secondary text-white">
                 <h3>Dollar</h3>
               </div>
             </div>
-            {
-              // <!-- SAMPLE PROJECT TASK STARTS HERE -->
-              // <!-- SAMPLE PROJECT TASK ENDS HERE -->
-            }
+            { dollar }
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import {
     accounts: [],
     account: {}
   };
-  console.log(accounts);
   
   export default function(state = initialState, action) {
     switch (action.type) {

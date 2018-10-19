@@ -14,7 +14,7 @@ class ClientBoard extends Component {
 
   render() {
     const { id } = this.props.match.params;
-    console.log(getBacklog(id));
+    const { accounts } = this.props.backlog;
     
     return (
       <div className="container">
@@ -24,7 +24,7 @@ class ClientBoard extends Component {
         </Link>
         <br />
         <hr />
-        <Backlog />
+        <Backlog accounts_prop={ accounts } />
       </div>
     );
   }
