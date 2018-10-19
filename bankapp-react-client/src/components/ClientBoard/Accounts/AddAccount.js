@@ -9,12 +9,12 @@ class AddAccount extends Component {
 
     constructor(props) {
         super(props);
-        const { id_client } = this.props.match.params;
+        const { id } = this.props.match.params;
          this.state = {
           count: "",
           type: "",
           created_At: "",
-          cardNumber: id_client,
+          cardNumber: id,
           errors: {}
         };
         this.onChange = this.onChange.bind(this);
@@ -49,7 +49,7 @@ class AddAccount extends Component {
       
 
   render() {
-    const { id_client } = this.props.match.params;
+    const { id } = this.props.match.params;
     const { errors } = this.state;
     return (
       <div className="add-PBI">
@@ -57,7 +57,7 @@ class AddAccount extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
             <br></br>
-              <Link to={ `/clientBoard/${id_client}` } className="btn btn-light">
+              <Link to={ `/clientBoard/${id}` } className="btn btn-light">
                 Back to Client Board
               </Link>
               <h4 className="display-4 text-center">Add Account</h4>

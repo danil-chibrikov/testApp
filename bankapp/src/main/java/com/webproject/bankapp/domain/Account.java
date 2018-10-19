@@ -12,11 +12,12 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_account;
+    private Long id;
     @Column(updatable = false, unique = true)
     private String accountSequence;
     @NotBlank(message = "Please deposit money")
     private String count;
+    private String type;
 
     //ManyToOne with Backlog
     @ManyToOne(fetch = FetchType.EAGER)
@@ -34,12 +35,12 @@ public class Account {
     public Account() {
     }
 
-    public Long getId_account() {
-        return id_account;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_account(Long id_account) {
-        this.id_account = id_account;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAccountSequence() {
@@ -90,6 +91,14 @@ public class Account {
         this.updated_At = updated_At;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     @PrePersist
     protected void OnCreate(){
         this.created_At = new Date();
@@ -102,7 +111,7 @@ public class Account {
     @Override
     public String toString() {
         return "Account{" +
-                "id_account=" + id_account +
+                "id=" + id +
                 ", accountSequence='" + accountSequence + '\'' +
                 ", count='" + count + '\'' +
                 ", backlog=" + backlog +

@@ -10,7 +10,7 @@ class UpdateClient extends Component {
         super()
 
         this.state = {
-            id_client: "",
+            id: "",
             fullname: "",
             address: "",
             cardNumber: "",
@@ -29,7 +29,7 @@ class UpdateClient extends Component {
         }
 
         const {
-            id_client,
+            id,
             fullname,
             address,
             cardNumber,
@@ -38,7 +38,7 @@ class UpdateClient extends Component {
         } = nextProps.client;
 
         this.setState({
-            id_client,
+            id,
             fullname,
             address,
             cardNumber,
@@ -48,8 +48,8 @@ class UpdateClient extends Component {
     }
 
     componentDidMount() {
-        const { id_client } = this.props.match.params;
-        this.props.getClient(id_client, this.props.history);
+        const { id } = this.props.match.params;
+        this.props.getClient(id, this.props.history);
     }
 
     onChange(e) {
@@ -62,7 +62,7 @@ class UpdateClient extends Component {
         e.preventDefault()
 
         const UpdateClient = {
-            id_client: this.state.id_client,
+            id: this.state.id,
             fullname: this.state.fullname,
             address: this.state.address,
             cardNumber: this.state.cardNumber,

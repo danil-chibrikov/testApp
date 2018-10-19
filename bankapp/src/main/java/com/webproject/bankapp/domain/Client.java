@@ -13,7 +13,7 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_client;
+    private Long id;
     @NotBlank(message = "Client fullname is required")
     private String fullname;
     @NotBlank(message = "Client address is required. Please use this form(City, street, number of building)")
@@ -43,12 +43,12 @@ public class Client {
         this.backlog = backlog;
     }
 
-    public Long getId_client() {
-        return id_client;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_client(Long id_client) {
-        this.id_client = id_client;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFullname() {

@@ -20,11 +20,11 @@ class App extends Component {
             <Header />
             <Route exact path="/dashboard" component={ Dashboard } />
             <Route exact path="/addClient" component={ AddClient } />
-            <Route exact path="/updateClient/:id_client" component={ UpdateClient } />
-            <Route exact path="/clientBoard/:id_client" component={ ClientBoard } />
+            <Route exact path="/updateClient/:id" component={ UpdateClient } />
+            <Route exact path="/clientBoard/:id" component={ ClientBoard } />
             <Route
               exact
-              path="/addAccount/:id_client"
+              path="/addAccount/:id"
               component={ AddAccount }
             />
           </div>

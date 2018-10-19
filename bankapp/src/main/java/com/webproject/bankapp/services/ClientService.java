@@ -20,13 +20,13 @@ public class ClientService {
     public Client saveOrUpdateClient(Client client) {
         try {
             client.setCardNumber(client.getCardNumber().toUpperCase());
-            if(client.getId_client() == null){
+            if(client.getId() == null){
                 Backlog backlog = new Backlog();
                 client.setBacklog(backlog);
                 backlog.setClient(client);
                 backlog.setCardNumber(client.getCardNumber().toUpperCase());
             }
-            if(client.getId_client() != null){
+            if(client.getId() != null){
                 client.setBacklog(backlogRepository.findByCardNumber(client.getCardNumber().toUpperCase()));
             }
 

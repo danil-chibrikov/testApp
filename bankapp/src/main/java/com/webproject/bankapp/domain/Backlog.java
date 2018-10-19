@@ -11,7 +11,7 @@ public class Backlog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_backlog;
+    private Long id;
     private Integer accountsCount = 0;
     private String cardNumber;
 
@@ -35,12 +35,12 @@ public class Backlog {
         this.client = client;
     }
 
-    public Long getId_backlog() {
-        return id_backlog;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_backlog(Long id_backlog) {
-        this.id_backlog = id_backlog;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Integer getAccountsCount() {

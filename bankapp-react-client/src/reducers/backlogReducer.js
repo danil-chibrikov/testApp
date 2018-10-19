@@ -8,13 +8,14 @@ import {
     accounts: [],
     account: {}
   };
+  console.log(accounts);
   
   export default function(state = initialState, action) {
     switch (action.type) {
       case GET_BACKLOG:
         return {
           ...state,
-          accounts: action.payload
+          accounts: action.payload          
         };
   
       case GET_ACCOUNT:

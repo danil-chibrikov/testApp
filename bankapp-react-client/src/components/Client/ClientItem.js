@@ -6,8 +6,8 @@ import { deleteClient } from "../../actions/clientActions";
 
 class ClientItem extends Component {
   
-  onDeleteClick = id_client => {
-    this.props.deleteClient(id_client);
+  onDeleteClick = id => {
+    this.props.deleteClient(id);
   };
 
   render() {
@@ -17,7 +17,7 @@ class ClientItem extends Component {
           <div className="card card-body bg-light mb-3">
               <div className="row">
                   <div className="col-3">
-                      <span className="mx-auto">{ client.id_client }</span>
+                      <span className="mx-auto">{ client.cardNumber }</span>
                   </div>
                   <div className="col-lg-6 col-md-4 col-8">
                       <h3>{ client.fullname }</h3>
