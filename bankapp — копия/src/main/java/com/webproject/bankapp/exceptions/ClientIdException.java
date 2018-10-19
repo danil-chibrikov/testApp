@@ -9,4 +9,5 @@ public class ClientIdException extends RuntimeException{
     public ClientIdException(String message) {
         super(message);
     }
+
 }

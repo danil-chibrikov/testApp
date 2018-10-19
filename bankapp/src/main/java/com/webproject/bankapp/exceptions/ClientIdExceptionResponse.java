@@ -2,17 +2,17 @@ package com.webproject.bankapp.exceptions;
 
 public class ClientIdExceptionResponse {
 
-    private String creditCardNumber;
+    private String cardNumber;
 
-    public ClientIdExceptionResponse(String creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
+    public ClientIdExceptionResponse(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
-    public String getCreditCardNumber() {
-        return creditCardNumber;
+    public String getCardNumber() {
+        return cardNumber;
     }
 
-    public void setCreditCardNumber(String creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 }

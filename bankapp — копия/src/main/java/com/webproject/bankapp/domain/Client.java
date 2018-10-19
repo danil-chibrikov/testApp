@@ -1,12 +1,13 @@
 package com.webproject.bankapp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Client {
@@ -18,29 +19,24 @@ public class Client {
     private String fullname;
     @NotBlank(message = "Client address is required. Please use this form(City, street, number of building)")
     private String address;
-    @NotBlank(message = "Client card number is required")
-    @Size(min=8, max=8, message = "Please use 8 characters. Only numeral")
+    @NotBlank(message = "Client credit card number is required")
+    @Size(min=16, max=16, message = "Please use 16 characters. Only numeral")
     @Column(unique = true)
-    private String cardNumber;
+    private String creditCardNumber;
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     @Column(updatable = false)
     private Date created_At;
     @JsonFormat(pattern = "dd-MM-yyyy hh:mm:ss")
     private Date updated_At;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "client")
-    @JsonIgnore
-    private Backlog backlog;
+    //@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "client")
+
+    //private Account account;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "client")
+    private List<Account> accounts = new ArrayList<>();
 
     public Client() {
-    }
-
-    public Backlog getBacklog() {
-        return backlog;
-    }
-
-    public void setBacklog(Backlog backlog) {
-        this.backlog = backlog;
     }
 
     public Long getId_client() {
@@ -67,12 +63,12 @@ public class Client {
         this.address = address;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public String getCreditCardNumber() {
+        return creditCardNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCreditCardNumber(String creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
     }
 
     public Date getCreated_At() {
@@ -91,6 +87,14 @@ public class Client {
         this.updated_At = updated_At;
     }
 
+//    public Account getAccount() {
+//        return account;
+//    }
+//
+//    public void setAccount(Account account) {
+//        this.account = account;
+//    }
+
     @PrePersist
     protected void OnCreate(){
         this.created_At = new Date();
@@ -99,5 +103,13 @@ public class Client {
     @PreUpdate
     protected void OnUpdate(){
         this.updated_At = new Date();
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }

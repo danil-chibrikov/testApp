@@ -1,8 +1,12 @@
 package com.webproject.bankapp.services;
 
 import com.webproject.bankapp.domain.Account;
-import com.webproject.bankapp.exceptions.AccountIdException;
+import com.webproject.bankapp.domain.Backlog;
+import com.webproject.bankapp.domain.Client;
+import com.webproject.bankapp.exceptions.ClientNotFoundException;
 import com.webproject.bankapp.repositories.AccountRepository;
+import com.webproject.bankapp.repositories.BacklogRepository;
+import com.webproject.bankapp.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,36 +14,65 @@ import org.springframework.stereotype.Service;
 public class AccountService {
 
     @Autowired
+    private BacklogRepository backlogRepository;
+
+    @Autowired
     private AccountRepository accountRepository;
 
-    public Account saveOrUpdateAccount(Account account) {
+    @Autowired
+    private ClientRepository clientRepository;
+
+    public Account addAccount(String accountIdentifier, Account account){
         try {
-            account.setAccountIdentifier(account.getAccountIdentifier().toUpperCase());
+            Backlog backlog = backlogRepository.findByCardNumber(accountIdentifier);
+            account.setBacklog(backlog);
+            Integer accountsCount = backlog.getAccountsCount();
+            accountsCount++;
+            backlog.setAccountsCount(accountsCount);
+            account.setAccountSequence(backlog.getCardNumber() + "-" + accountsCount);
+            account.setCardNumber(accountIdentifier);
+
             return accountRepository.save(account);
         }catch (Exception e) {
-            throw new AccountIdException("Account ID '" + account.getAccountIdentifier().toUpperCase() + "' already exists");
+            throw new ClientNotFoundException("Client not found");
         }
     }
 
-    public Account findAccountByIdentifier(String accountId) {
-        Account account = accountRepository.findByAccountIdentifier(accountId.toUpperCase());
+    public Iterable<Account>findBacklogById(String id){
+        Client client = clientRepository.findByCardNumber(id);
+        if(client == null) {
+            throw new ClientNotFoundException("Client with card number: '" + id + "' does not exist");
+        }
 
+        return accountRepository.findByCardNumber(id);
+    }
+
+    public Account findAccountByAccountSequence(String backlog_id, String account_id){
+        Backlog backlog = backlogRepository.findByCardNumber(backlog_id);
+        if(backlog == null) {
+            throw new ClientNotFoundException("Client with card number: '" + backlog_id + "' does not exist");
+        }
+        Account account = accountRepository.findByAccountSequence(account_id);
         if(account == null) {
-            throw new AccountIdException("Account ID '" + accountId + "' does not exists");
+            throw new ClientNotFoundException("Client account '" + account_id + "' not found");
+        }
+        if(!account.getCardNumber().equals(backlog_id)) {
+            throw new ClientNotFoundException("Client account '" + account_id +
+                    "' does not exist in client: '" + backlog_id);
         }
         return account;
     }
 
-    public Iterable<Account> findAllAccounts() {
-        return accountRepository.findAll();
+    public Account updateByAccountSequence(Account updatedAccount, String backlog_id, String account_id){
+        Account account = findAccountByAccountSequence(backlog_id, account_id);
+        account = updatedAccount;
+
+        return accountRepository.save(account);
     }
 
-    public void deleteAccountByIdentifier(String accountId) {
-        Account account = accountRepository.findByAccountIdentifier(accountId.toUpperCase());
+    public void deleteAccountByClientSequence(String backlog_id, String account_id){
+        Account account = findAccountByAccountSequence(backlog_id, account_id);
 
-        if(account == null) {
-            throw new AccountIdException("Cannot Account with ID '" + accountId + "'. This account does not exist");
-        }
         accountRepository.delete(account);
     }
 }

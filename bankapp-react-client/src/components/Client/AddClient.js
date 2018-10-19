@@ -11,7 +11,7 @@ class AddClient extends Component {
     this.state = {
       fullname: "",
       address: "",
-      creditCardNumber: "",
+      cardNumber: "",
       errors: {}
     };
 
@@ -35,7 +35,7 @@ class AddClient extends Component {
     const newClient = {
       "fullname": this.state.fullname,
       "address": this.state.address,
-      "creditCardNumber": this.state.creditCardNumber
+      "cardNumber": this.state.cardNumber
     };
     this.props.createClient(newClient, this.props.history);
   }
@@ -110,18 +110,18 @@ class AddClient extends Component {
                       className = {
                         classnames(
                           "form-control form-control-lg", {
-                            "is-invalid": errors.creditCardNumber
+                            "is-invalid": errors.cardNumber
                           }
                         )
                       }
                       placeholder="Credit card number"
-                      name="creditCardNumber"
-                      value={ this.state.creditCardNumber }
+                      name="cardNumber"
+                      value={ this.state.cardNumber }
                       onChange={ this.onChange.bind(this) }
                     />
-                    { errors.creditCardNumber && (
+                    { errors.cardNumber && (
                       <div className="invalid-feedback">
-                        {errors.creditCardNumber}
+                        {errors.cardNumber}
                       </div>
                     )}
                   </div>

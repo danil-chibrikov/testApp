@@ -24,15 +24,19 @@ public class ClientController {
 
     @PostMapping("")
     public ResponseEntity<?> createNewClient(@Valid @RequestBody Client client, BindingResult bindingResult) {
+
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(bindingResult);
         if(errorMap != null) return errorMap;
+
         Client cl = clientService.saveOrUpdateClient(client);
         return new ResponseEntity<Client>(cl, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{cardNumber}")
-    public ResponseEntity<?> getClientByCardNumber(@PathVariable String cardNumber) {
-        Client client = clientService.findClientByCardNumber(cardNumber);
+    @GetMapping("/{creditCardNumber}")
+    public ResponseEntity<?> getClientByCreditCardNumber(@PathVariable String creditCardNumber) {
+
+        Client client = clientService.findClientByCreditCardNumber(creditCardNumber);
+
         return new ResponseEntity<Client>(client, HttpStatus.OK);
     }
 
@@ -41,10 +45,11 @@ public class ClientController {
         return clientService.findAllClients();
     }
 
-    @DeleteMapping("/{cardNumber}")
-    public ResponseEntity<?> deleteClient(@PathVariable String cardNumber) {
-        clientService.deleteClientsByCardNumber(cardNumber);
-        return new ResponseEntity<String>("Client with card number: '" +
-                cardNumber + "' was deleted", HttpStatus.OK);
+    @DeleteMapping("/{creditCardNumber}")
+    public ResponseEntity<?> deleteClient(@PathVariable String creditCardNumber) {
+        clientService.deleteClientsByCreditCardNumber(creditCardNumber);
+
+        return new ResponseEntity<String>("Client with credit card number: '" +
+                creditCardNumber + "' was deleted", HttpStatus.OK);
     }
 }
