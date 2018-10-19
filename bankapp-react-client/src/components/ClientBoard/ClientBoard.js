@@ -14,6 +14,8 @@ class ClientBoard extends Component {
 
   render() {
     const { id } = this.props.match.params;
+    console.log(getBacklog(id));
+    
     return (
       <div className="container">
       <br></br>
