@@ -8,6 +8,8 @@ import AddClient from "./components/Client/AddClient";
 import { Provider } from "react-redux";
 import store from "./store";
 import UpdateClient from "./components/Client/UpdateClient";
+import ClientBoard from "./components/ClientBoard/ClientBoard";
+import AddAccount from "./components/ClientBoard/Accounts/AddAccount";
 
 class App extends Component {
   render() {
@@ -19,6 +21,12 @@ class App extends Component {
             <Route exact path="/dashboard" component={ Dashboard } />
             <Route exact path="/addClient" component={ AddClient } />
             <Route exact path="/updateClient/:id_client" component={ UpdateClient } />
+            <Route exact path="/clientBoard/:id_client" component={ ClientBoard } />
+            <Route
+              exact
+              path="/addAccount/:id_client"
+              component={ AddAccount }
+            />
           </div>
         </Router>
       </Provider>

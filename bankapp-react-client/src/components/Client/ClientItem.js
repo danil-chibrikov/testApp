@@ -25,11 +25,11 @@ class ClientItem extends Component {
                   </div>
                   <div className="col-md-3 d-none d-lg-block">
                       <ul className="list-group">
-                          <a href="#">
+                          <Link to={ `/clientBoard/${client.cardNumber}` }>
                               <li className="list-group-item board">
                                   <p className="fa fa-check pr-1"> Client Board </p>
                               </li>
-                          </a>
+                          </Link>
                           <Link to={ `/updateClient/${ client.cardNumber }` }>
                               <li className="list-group-item update">
                                   <p className="fa fa-edit pr-1"> Update Client Info</p>

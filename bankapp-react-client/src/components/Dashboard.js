@@ -23,8 +23,8 @@ class Dashboard extends Component {
                       <CreateClientButton />
                       <br />
                       <hr />
-                      {clients.map(client => (
-                        <ClientItem key={ client.id_client }client={ client } />
+                      { clients.map(client => (
+                        <ClientItem key={ client.id_client } client={ client } />
                       ))
                       }
                   </div>
