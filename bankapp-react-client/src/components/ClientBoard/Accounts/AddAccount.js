@@ -13,6 +13,7 @@ class AddAccount extends Component {
          this.state = {
           count: "",
           type: "",
+          description: "",
           created_At: "",
           cardNumber: id,
           errors: {}
@@ -37,6 +38,7 @@ class AddAccount extends Component {
          const newAccount = {
             count: this.state.count,
             type: this.state.type,
+            description: this.description,
             created_At: this.state.created_At,
             cardNumber: this.state.cardNumber
         };
@@ -91,6 +93,22 @@ class AddAccount extends Component {
                     <option value="EURO">EURO</option>
                     <option value="DOLLAR">DOLLAR</option>
                   </select>
+                </div>
+                
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className={ classnames("form-control form-control-lg", {
+                      "is-invalid": errors.description
+                    })}
+                    name="description"
+                    placeholder="Description"
+                    value={ this.state.description }
+                    onChange={ this.onChange }
+                  />
+                  { errors.description && (
+                    <div className="invalid-feedback">{ errors.description }</div>
+                  )}
                 </div>
 
                 <input

@@ -27,10 +27,10 @@ export const getClients = () => async dispatch => {
 
 export const getClient = (id, history) => async dispatch => {
     try {
-        await axios.get(`/bank/client/${ id }`);
+        const res = await axios.get(`/bank/client/${ id }`);
         dispatch ({
             type: GET_CLIENT,
-            payload: id
+            payload: res.data
         });
     } catch (error) {
         history.push("/dashboard");

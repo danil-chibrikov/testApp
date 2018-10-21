@@ -23,6 +23,11 @@ class UpdateClient extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        const { id } = this.props.match.params;
+        this.props.getClient(id, this.props.history);
+    }
+
     componentWillReceiveProps(nextProps) {
         if(nextProps.errors) {
             this.setState({ errors: nextProps.errors });
@@ -47,11 +52,6 @@ class UpdateClient extends Component {
         });
     }
 
-    componentDidMount() {
-        const { id } = this.props.match.params;
-        this.props.getClient(id, this.props.history);
-    }
-
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
@@ -69,7 +69,7 @@ class UpdateClient extends Component {
             created_At: this.state.created_At,
             updated_At: this.state.updated_At
         };
-
+        
         this.props.createClient(UpdateClient, this.props.history);
     }
 

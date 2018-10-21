@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
  class Account extends Component {
   render() {
@@ -13,11 +14,15 @@ import React, { Component } from "react";
         <div className="card-body bg-light">
           <h5 className="card-title">{ account.count }</h5>
           <p className="card-text font-weight-light ">
-          { account.created_At }
+          { account.updated_At }
           </p>
-          <a href="" className="btn btn-outline-primary">
+          <Link to={ `/updateAccount/${account.cardNumber}/${
+              account.accountSequence
+            }` }
+            className="btn btn-primary"
+          >
             View
-          </a>
+          </Link>
 
           <button className="btn btn-outline-danger ml-4">Delete</button>
         </div>

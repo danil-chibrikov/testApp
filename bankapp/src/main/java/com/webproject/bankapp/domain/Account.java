@@ -17,7 +17,9 @@ public class Account {
     private String accountSequence;
     @NotBlank(message = "Please deposit money")
     private String count;
+    @NotBlank(message = "Please select currency")
     private String type;
+    private String description;
 
     //ManyToOne with Backlog
     @ManyToOne(fetch = FetchType.EAGER)
@@ -97,6 +99,14 @@ public class Account {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @PrePersist

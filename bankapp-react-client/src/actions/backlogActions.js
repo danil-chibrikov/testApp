@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, GET_BACKLOG } from "./types";
+import { GET_ERRORS, GET_BACKLOG, GET_ACCOUNT } from "./types";
 
  export const addAccount = (
   backlog_id,
@@ -7,8 +7,8 @@ import { GET_ERRORS, GET_BACKLOG } from "./types";
   history
 ) => async dispatch => {
   try {
-    await axios.post(`/bank/backlog/${backlog_id}`, account);
-    history.push(`/clientBoard/${backlog_id}`);
+    await axios.post(`/bank/backlog/${ backlog_id }`, account);
+    history.push(`/clientBoard/${ backlog_id }`);
     dispatch({
       type: GET_ERRORS,
       payload: {}
@@ -23,10 +23,44 @@ import { GET_ERRORS, GET_BACKLOG } from "./types";
 
 export const getBacklog = backlog_id => async dispatch => {
   try {
-    const res = await axios.get(`/bank/backlog/${backlog_id}`);
+    const res = await axios.get(`/bank/backlog/${ backlog_id }`);
     dispatch({
       type: GET_BACKLOG,
       payload: res.data
     });
-  } catch (err) {}
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+};
+
+export const getAccount = (backlog_id, account_id, history) => async dispatch => {
+  try {
+    const res = await axios.get(`/bank/backlog/${ backlog_id }/${ account_id }`)
+    dispatch({
+      type: GET_ACCOUNT,
+      payload: res.data
+    });
+  } catch (error) {
+    history.push("/dashboard");
+    
+  }
+};
+
+export const updateAccount = (backlog_id, account_id, account, history) => async dispatch => {
+  try {
+    await axios.patch(`/bank/backlog/${ backlog_id }/${ account_id }`, account)
+    history.push(`/clientBoard/${ backlog_id }`)
+    dispatch({
+      type: GET_ERRORS,
+      payload: {}
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    });
+  }
 };

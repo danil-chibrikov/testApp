@@ -10,6 +10,7 @@ import store from "./store";
 import UpdateClient from "./components/Client/UpdateClient";
 import ClientBoard from "./components/ClientBoard/ClientBoard";
 import AddAccount from "./components/ClientBoard/Accounts/AddAccount";
+import UpdateAccount from "./components/ClientBoard/Accounts/UpdateAccount";
 
 class App extends Component {
   render() {
@@ -23,9 +24,12 @@ class App extends Component {
             <Route exact path="/updateClient/:id" component={ UpdateClient } />
             <Route exact path="/clientBoard/:id" component={ ClientBoard } />
             <Route
-              exact
-              path="/addAccount/:id"
+              exact path="/addAccount/:id"
               component={ AddAccount }
+            />
+            <Route
+              exact path="/updateAccount/:backlog_id/:account_id"
+              component={ UpdateAccount }
             />
           </div>
         </Router>
