@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ERRORS, GET_BACKLOG, GET_ACCOUNT } from "./types";
+import { GET_ERRORS, GET_BACKLOG, GET_ACCOUNT, DELETE_ACCOUNT } from "./types";
 
  export const addAccount = (
   backlog_id,
@@ -62,5 +62,18 @@ export const updateAccount = (backlog_id, account_id, account, history) => async
       type: GET_ERRORS,
       payload: error.response.data
     });
+  }
+};
+
+export const deleteAccount = (backlog_id, account_id) => async dispatch => {
+  if (window.confirm(
+        `Are you sure? Thiw will delete the account ${ account_id }, this action cannot be undone`
+    ))
+  {
+    await axios.delete(`/bank/backlog/${ backlog_id }/${ account_id }`);
+    dispatch ({
+        type: DELETE_ACCOUNT,
+        payload: account_id
+    }); 
   }
 };

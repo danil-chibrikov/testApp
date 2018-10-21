@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { deleteAccount } from "../../../actions/backlogActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
  class Account extends Component {
+
+  onDeleteClick(backlog_id, account_id) {
+    this.props.deleteAccount(backlog_id, account_id);
+  }
+
   render() {
     const { account } = this.props;
   
@@ -24,10 +32,25 @@ import { Link } from "react-router-dom";
             View
           </Link>
 
-          <button className="btn btn-outline-danger ml-4">Delete</button>
+          <button className="btn btn-outline-danger ml-4" onClick={this.onDeleteClick.bind(
+            this, 
+            account.cardNumber, 
+            account.accountSequence
+            )}
+          >
+            Delete
+          </button>
         </div>
       </div>
     );
   }
 }
-export default Account;
+
+Account.PropTypes = {
+  deleteAccount: PropTypes.func.isRequired
+};
+
+export default connect(
+  null, 
+  { deleteAccount }
+  )(Account);

@@ -25,8 +25,10 @@ import {
   
       case DELETE_ACCOUNT:
         return {
-          ...state
-  
+          ...state,
+          accounts: state.accounts.filter(
+            account => account.accountSequence !== action.payload
+            )
         };
   
       default:
